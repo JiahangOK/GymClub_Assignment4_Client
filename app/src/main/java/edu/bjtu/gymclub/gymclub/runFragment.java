@@ -1,27 +1,35 @@
 package edu.bjtu.gymclub.gymclub;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -29,7 +37,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import edu.bjtu.gymclub.gymclub.Adapter.RecyclerViewAdapter;
+import edu.bjtu.gymclub.gymclub.Entity.Config;
 import edu.bjtu.gymclub.gymclub.Entity.Trainer;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 @SuppressLint("ValidFragment")
 public class runFragment extends Fragment {
@@ -69,75 +84,120 @@ public class runFragment extends Fragment {
     private RecyclerViewAdapter recyclerViewAdapter;
 
     @SuppressLint("ValidFragment")
-    public runFragment(String jsoninfo) {
-        this.jsoninfo = jsoninfo;
+    public runFragment() {
+
     }
 
+    public void setJsoninfo(String jsoninfo) {
+        this.jsoninfo = jsoninfo;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_run, null);
         setView();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
 
         recyclerView = (RecyclerView) mView.findViewById(R.id.recyclerView);
+        //数据存储API(SharedPreferences)
+        SharedPreferences sp = null;
+        sp = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);//sp.getString()第二个参数是缺省值，如果SharedPreferences中不存在值就返回缺省值
+        String username = sp.getString("USERNAME", ""); //获取sp里面存储的数据
 
-        initTrainerData();
-        recyclerViewAdapter = new RecyclerViewAdapter(trainerList, getActivity());
+        String url = "http://" + Config.HOST + ":8080/userTrainer?username=" + username;
+        initTrainerData(url);
 
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recyclerViewAdapter);
 
         return mView;
     }
 
     //加载教练信息
-    private void initTrainerData() {
-        trainerList = new ArrayList<>();
-//        ImageView iv_img = (ImageView)mView.findViewById(R.id.thumbnail_image_1);
-//
-//        //字符串转化为图片
-//        Bitmap bitmap=null;
-//        try {
-//            byte[]bitmapArray;
-//            bitmapArray= Base64.decode(imageStr, Base64.DEFAULT);
-//            bitmap=BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        MainInterfaceActivity mainInterfaceActivity = (MainInterfaceActivity)getActivity();
-//        iv_img.setImageBitmap(bitmap);
-        JSONObject jsonObject = null;
-        String trainer_image = null;
-        String trainer_name = null;
-        String trainer_intro = null;
-        String trainer_tel = null;
-        String trainer_email = null;
+    private void initTrainerData(String url) {
+        OkHttpClient client = new OkHttpClient();
+        FormBody.Builder formBuilder = new FormBody.Builder();
+        Request request = new Request.Builder().url(url).post(formBuilder.build()).build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //连接失败从数据库中读取
+                        System.out.println("连接失败，从数据库读取！");
 
-        try {
-            jsonObject = new JSONObject(jsoninfo);
-            JSONArray data = jsonObject.getJSONArray("trainer_info");
-            for (int i = 0; i < data.length(); i++) {
-                JSONObject jsonObject1 = data.getJSONObject(i);
-                trainer_image = jsonObject1.getString("trainer_image_url");
-                trainer_name = jsonObject1.getString("trainer_name");
-                trainer_intro = jsonObject1.getString("trainer_intro");
-                trainer_tel = jsonObject1.getString("trainer_tel");
-                trainer_email = jsonObject1.getString("trainer_email");
-                //添加教练
-                trainerList.add(new Trainer(trainer_name, trainer_image,trainer_intro,trainer_tel,trainer_email));
+                    }
+                });
+
             }
 
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+                        String res = null;
+                        try {
+                            res = response.body().string();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+//                        String jsoninfo = null;
+
+                        System.out.println("获取到res：" + res);
+                        //获取当前fragment
+//                        FragmentManager fragmentManager = getFragmentManager();
+//                        runFragment runfragment = null;
+
+//                        runfragment = (runFragment) fragmentManager.getFragments().get(0);
+//                        runfragment.setJsoninfo(res);
+                        String jsoninfo = res;
+                        //存入数据库
+
+                        trainerList = new ArrayList<>();
+
+                        JSONObject jsonObject = null;
+                        String trainer_image = null;
+                        String trainer_name = null;
+                        String trainer_intro = null;
+                        String trainer_tel = null;
+                        String trainer_email = null;
+
+                        try {
+                            jsonObject = new JSONObject(jsoninfo);
+                            JSONArray data = jsonObject.getJSONArray("trainer_info");
+                            for (int i = 0; i < data.length(); i++) {
+                                JSONObject jsonObject1 = data.getJSONObject(i);
+                                trainer_image = jsonObject1.getString("trainer_image_url");
+                                trainer_name = jsonObject1.getString("trainer_name");
+                                trainer_intro = jsonObject1.getString("trainer_intro");
+                                trainer_tel = jsonObject1.getString("trainer_tel");
+                                trainer_email = jsonObject1.getString("trainer_email");
+                                //添加教练
+                                trainerList.add(new Trainer(trainer_name, trainer_image, trainer_intro, trainer_tel, trainer_email));
+                            }
 
 
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        recyclerViewAdapter = new RecyclerViewAdapter(trainerList, getActivity());
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                        recyclerView.setHasFixedSize(true);
+                        recyclerView.setLayoutManager(layoutManager);
+                        recyclerView.setAdapter(recyclerViewAdapter);
+
+
+                    }
+                });
+
+
+            }
+        });
     }
+
 
     private void setView() {
         mViewPaper = (ViewPager) mView.findViewById(R.id.vp);

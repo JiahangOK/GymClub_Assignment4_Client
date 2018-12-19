@@ -2,7 +2,9 @@ package edu.bjtu.gymclub.gymclub;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,11 +33,15 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     Dialog dialog;
+    //数据存储API(SharedPreferences)
+    private SharedPreferences sp = null;
 
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sp = MainActivity.this.getSharedPreferences("userinfo", Context.MODE_PRIVATE); //
+        //sp.getString()第二个参数是缺省值，如果SharedPreferences中不存在值就返回缺省值
         setContentView(R.layout.activity_main);
         Button signInBtn = (Button) findViewById(R.id.signInBtn);
         Button signUpBtn = (Button) findViewById(R.id.signUpBtn);
@@ -51,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
                 String username = userNameEdit.getText().toString();
                 String password = userPasswordEdit.getText().toString();
-                String url = "http://"+ Config.HOST+":8080/user";
+                String url = "http://" + Config.HOST + ":8080/user";
                 getCheckFromServer(url, username, password);
-                StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
 
             }
@@ -83,6 +89,13 @@ public class MainActivity extends AppCompatActivity {
         FormBody.Builder formBuilder = new FormBody.Builder();
         formBuilder.add("username", username);
         formBuilder.add("password", password);
+
+        SharedPreferences.Editor editor = sp.edit();//新建一个Editor对象来存储键值对用户名和密码
+        editor.putString("USERNAME", username);
+        editor.putString("PASSWORD", password);
+        //提交数据
+        editor.commit();
+
         Request request = new Request.Builder().url(url).post(formBuilder.build()).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -122,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent;
                             intent = new Intent();
                             intent.setClass(MainActivity.this, MainInterfaceActivity.class);
-                            intent.putExtra("jsoninfo",jsoninfo);
+                            intent.putExtra("jsoninfo", jsoninfo);
+
 
                             startActivity(intent);
                             closeDialog();

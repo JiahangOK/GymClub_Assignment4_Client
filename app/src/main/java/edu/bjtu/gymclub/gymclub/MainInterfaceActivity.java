@@ -2,6 +2,7 @@ package edu.bjtu.gymclub.gymclub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -48,9 +49,12 @@ public class MainInterfaceActivity extends AppCompatActivity {
 
     private RadioButton rb_sport, rb_info;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.main_interface);
         Intent intent = getIntent();
         String jsoninfo = intent.getStringExtra("jsoninfo");
@@ -58,9 +62,7 @@ public class MainInterfaceActivity extends AppCompatActivity {
     }
 
 
-
-    private void initView(final String jsoninfo){
-
+    private void initView(final String jsoninfo) {
 
 
         rb_sport = (RadioButton) findViewById(R.id.rb_sport);
@@ -72,7 +74,7 @@ public class MainInterfaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.content_layout,new sportFragment(jsoninfo));
+                transaction.replace(R.id.content_layout, new sportFragment(jsoninfo),"sportFragment");
                 transaction.commit();
             }
         });
@@ -81,7 +83,7 @@ public class MainInterfaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.content_layout,new infoFragment());
+                transaction.replace(R.id.content_layout, new infoFragment());
 
                 transaction.commit();
             }
@@ -90,30 +92,29 @@ public class MainInterfaceActivity extends AppCompatActivity {
 
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
-        transaction.add(R.id.content_layout,new sportFragment(jsoninfo));
+        transaction.add(R.id.content_layout, new sportFragment(jsoninfo),"sportFragment");
         rb_sport.setChecked(true);
         transaction.commit();
-
 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar1);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_drawer);
+            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_drawer);
             int originalWidth = originalBitmap.getWidth();
             int originalHeight = originalBitmap.getHeight();
             int newWidth = 100;
             int newHeight = 150; // 自定义 高度 暂时没用
-            float scale = ((float) newHeight) /originalHeight;
+            float scale = ((float) newHeight) / originalHeight;
             Matrix matrix = new Matrix();
             matrix.postScale(scale, scale);
-            Bitmap changedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0,originalWidth, originalHeight, matrix, true);
-            BitmapDrawable b=new BitmapDrawable(null, changedBitmap);
+            Bitmap changedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalWidth, originalHeight, matrix, true);
+            BitmapDrawable b = new BitmapDrawable(null, changedBitmap);
             actionBar.setHomeAsUpIndicator(b);
         }
 
@@ -122,44 +123,44 @@ public class MainInterfaceActivity extends AppCompatActivity {
     }
 
 
-    private void initSideView(DrawerLayout drawerLayout){
+    private void initSideView(DrawerLayout drawerLayout) {
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener(){
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case R.id.nav_announcement:
-                        intent = new Intent(MainInterfaceActivity.this,AnnounceActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nav_schedule:
-                        intent = new Intent(MainInterfaceActivity.this,ScheduleActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nav_coaches:
-                        intent = new Intent(MainInterfaceActivity.this,CoachActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nav_findus:
-                        intent = new Intent(MainInterfaceActivity.this,FindUsActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.nav_share:
-                        break;
-                    case R.id.nav_send:
-                        break;
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Intent intent;
+                        switch (item.getItemId()) {
+                            case R.id.nav_home:
+                                mDrawerLayout.closeDrawer(GravityCompat.START);
+                                break;
+                            case R.id.nav_announcement:
+                                intent = new Intent(MainInterfaceActivity.this, AnnounceActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.nav_schedule:
+                                intent = new Intent(MainInterfaceActivity.this, ScheduleActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.nav_coaches:
+                                intent = new Intent(MainInterfaceActivity.this, CoachActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.nav_findus:
+                                intent = new Intent(MainInterfaceActivity.this, FindUsActivity.class);
+                                startActivity(intent);
+                                break;
+                            case R.id.nav_share:
+                                break;
+                            case R.id.nav_send:
+                                break;
+                        }
+
+
+                        return true;
+                    }
+
                 }
-
-
-                return true;
-            }
-
-        }
 
 
         );
@@ -168,7 +169,7 @@ public class MainInterfaceActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             //打开侧滑栏
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -176,8 +177,6 @@ public class MainInterfaceActivity extends AppCompatActivity {
         }
         return true;
     }
-
-
 
 
 }

@@ -25,6 +25,10 @@ public class sportFragment extends Fragment {
     //放进集合
     private List<String> tas=new ArrayList<>();
 
+    public List<String> getTas() {
+        return tas;
+    }
+
     @SuppressLint("ValidFragment")
     public sportFragment(String jsoninfo) {
         this.jsoninfo = jsoninfo;
@@ -94,7 +98,7 @@ public class sportFragment extends Fragment {
             switch (position){
 
                 case 0:
-                    f=new runFragment(jsoninfo);
+                    f=new runFragment();
                     break;
                 case 1:
                     f=new walkFragment(jsoninfo);
