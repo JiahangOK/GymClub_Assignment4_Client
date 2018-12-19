@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GymClub</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Open</string>
+    <string name="title_activity_coach">CoachActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="share_this_news">Share this news</string>
+    <string name="news_preview_image">Image Preview</string>
+</resources>

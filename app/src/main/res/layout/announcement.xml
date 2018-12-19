@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fd433a"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="511dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="78dp"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/announce_back" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:text="Upcomming Exam "
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="#4e4e5a"/>
+
+    <TextView
+        android:id="@+id/t7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:layout_marginBottom="253dp"
+        android:text="4th April, Tuesday  - EDC"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t6"
+        android:layout_below="@id/t7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="360dp"
+        android:text="5th April, Wednesday  - WT"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t3"
+        android:layout_below="@id/t4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="start"
+        android:layout_marginTop="240dp"
+        android:text="6th April, Thursday  - ES"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t5"
+        android:layout_below="@id/t6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
+        android:text="7th April, Friday  - DOS"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t4"
+        android:layout_below="@id/t5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="start"
+        android:layout_marginTop="280dp"
+        android:text="8th April, Saturday  - AI"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t2"
+        android:layout_below="@id/t3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:text="9th April, Monday  - OS"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/t1"
+        android:layout_below="@id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:text="10th April, Tuesday  - CA"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1a1a23"
+        android:textSize="22dp"/>
+
+</RelativeLayout>

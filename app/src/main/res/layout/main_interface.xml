@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawer_layout"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar1"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+        <!--展示的内容-->
+        <LinearLayout
+            android:id="@+id/content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        </LinearLayout>
+        <!-- 选项-->
+        <LinearLayout
+            android:id="@+id/frameMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            >
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                >
+                <RadioButton
+                    android:id="@+id/rb_sport"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Sport"
+                    android:gravity="center"
+                    android:drawableTop="@drawable/sport"
+                    android:background="@drawable/radio_group_selector"
+
+                    android:paddingTop="15px"
+
+                    android:button="@null"/>
+                <RadioButton
+                    android:id="@+id/rb_info"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Info"
+                    android:paddingTop="15px"
+
+                    android:gravity="center"
+                    android:background="@drawable/radio_group_selector"
+                    android:drawableTop="@drawable/info"
+                    android:button="@null"/>
+            </RadioGroup>
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/left"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#fff"
+        android:layout_gravity="start"
+
+
+        >
+
+
+
+        <!--<ListView-->
+            <!--android:id="@+id/listview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#fff"-->
+            <!--android:choiceMode="singleChoice"-->
+            <!--android:dividerHeight="0dp"/>-->
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/menu_navi"
+            app:headerLayout="@layout/nav_head"
+            android:paddingTop="0dp"/>
+
+
+
+
+    </LinearLayout>
+
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/nav_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center"-->
+        <!--app:menu="@menu/nav_menu"-->
+        <!--app:headerLayout="@layout/nav_header"/>-->
+
+
+
+</android.support.v4.widget.DrawerLayout>

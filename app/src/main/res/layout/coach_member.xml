@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/coach_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:maxHeight="600px"-->
+        <!--android:maxWidth="600px"-->
+        <!--android:paddingTop="70px"-->
+        <!--android:paddingBottom="70px"-->
+        <!--android:paddingRight="10px"-->
+        <!--android:paddingLeft="10px"/>-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coach_image"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:civ_border_color="#FFF5EE"
+        app:civ_border_width="3dp"
+        />
+
+    <TextView
+        android:id="@+id/coach_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/coach_intro"
+        android:layout_alignStart="@+id/coach_intro"
+        android:layout_gravity="center"
+        android:background="#fd433a"
+        android:gravity="center"
+        android:paddingBottom="2.5dp"
+        android:text="2131"
+        android:textColor="#F0F8FF"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/coach_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/coach_image"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="left"
+        android:layout_marginStart="120dp"
+        android:gravity="left"
+        android:text="123131231"
+        android:textSize="23dp" />
+
+    </RelativeLayout>

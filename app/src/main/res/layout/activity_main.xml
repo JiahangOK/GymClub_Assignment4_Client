@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="0px">
+
+        <ImageView
+            android:layout_width="289dp"
+            android:layout_height="227dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20px"
+            android:layout_marginTop="50px"
+            android:src="@drawable/login_logo"
+
+            />
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:paddingBottom="5px"-->
+            <!--android:paddingLeft="120px"-->
+            <!--android:paddingRight="120px">-->
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:paddingRight="30px"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="Username"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:textSize="50px" />&ndash;&gt;-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/login_username"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:hint="Username"-->
+                <!--android:textSize="44px"-->
+                <!--android:singleLine="true"/>-->
+        <!--</LinearLayout>-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/hint_style">
+
+            <EditText
+                android:id="@+id/login_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:singleLine="true"
+                android:textSize="42px"
+                android:layout_marginRight="120px"
+                android:layout_marginLeft="120px"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintTextAppearance="@style/hint_style"
+            app:passwordToggleEnabled="true"
+            >
+
+            <!--<EditText-->
+                <!--android:id="@+id/login_password"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Password"-->
+                <!--android:singleLine="true"-->
+                <!--android:textSize="42px"-->
+                <!--android:layout_marginRight="120px"-->
+                <!--android:layout_marginLeft="120px"/>-->
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textSize="42px"
+                android:layout_marginRight="120px"
+                android:layout_marginLeft="120px"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:paddingBottom="5px"-->
+            <!--android:paddingLeft="120px"-->
+            <!--android:paddingRight="120px"-->
+            <!--&gt;-->
+            <!--&lt;!&ndash;android:paddingTop="20px"&ndash;&gt;-->
+
+
+            <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingRight="30px"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:text="Password"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:textSize="50px" />&ndash;&gt;-->
+
+            <!--<EditText-->
+                <!--android:id="@+id/login_password"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Password"-->
+                <!--android:textSize="44px"-->
+                <!--android:layout_weight="1"-->
+                <!--android:inputType="textPassword"-->
+                <!--android:singleLine="true"-->
+                <!--/>-->
+        <!--</LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:layout_marginTop="50px"
+            android:orientation="horizontal"
+            android:paddingLeft="180px"
+            android:paddingRight="180px">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:padding="0px">
+
+                <Button
+                    android:id="@+id/signInBtn"
+                    android:layout_width="300px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+
+                    android:background="@drawable/btn_nor_down"
+                    android:text="Sign In"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:padding="0px">
+
+
+                <!--android:layout_marginLeft="50px"-->
+                <Button
+                    android:id="@+id/signUpBtn"
+                    android:layout_width="300px"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+
+                    android:background="@drawable/btn_nor_down"
+                    android:text="Sign Up"
+                    android:textAllCaps="false"
+                    android:textColor="#ffffff"
+                    android:textSize="20dp" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

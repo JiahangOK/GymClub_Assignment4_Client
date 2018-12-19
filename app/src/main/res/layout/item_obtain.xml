@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:card_view="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/trainer_list_card_view"
+style="@style/cardStyle"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginBottom="20dp"
+card_view:cardCornerRadius="4dp"
+card_view:cardElevation="4dp">
+
+<RelativeLayout
+    style="@style/cardRelativeLayoutStyle"
+    android:layout_height="wrap_content"
+    tools:ignore="UselessParent">
+
+    <ImageView
+        android:id="@+id/item_tv_img"
+        style="@style/cardImageViewStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/news_preview_image" />
+
+    <TextView
+        android:id="@+id/item_tv_name"
+        style="@style/cardQuestionTitleStyle2"
+        />
+
+
+</RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

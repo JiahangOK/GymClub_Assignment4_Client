@@ -1,0 +1,163 @@
+<resources>
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#fd433a</item>
+        <item name="colorPrimaryDark">#fd433a</item>
+        <item name="colorAccent">#fb9893</item>
+    </style>`
+    <style name="baseLayoutParam">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="toolbarStyle" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>"
+    </style>
+
+    <style name="commonListViewStyle" parent="baseLayoutParam">
+        <item name="android:drawSelectorOnTop">false</item>
+    </style>
+
+    <style name="cardStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="cardRelativeLayoutStyle" parent="baseLayoutParam">
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <style name="cardImageViewStyle">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_height">95dp</item>
+        <item name="android:layout_width">95dp</item>
+    </style>
+
+    <style name="baseCardTextStyle" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_toLeftOf">@id/card_share_overflow</item>
+        <item name="android:layout_toRightOf">@id/trainer_image</item>
+        <item name="android:layout_below">@id/trainer_name</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="baseCardTextStyle2" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_toLeftOf">@id/card_share_overflow</item>
+        <item name="android:layout_toRightOf">@id/item_tv_img</item>
+        <item name="android:layout_below">@id/trainer_name</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="baseCardTextStyle3" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_toLeftOf">@id/card_share_overflow</item>
+        <item name="android:layout_toRightOf">@id/trainer_image</item>
+        <item name="android:layout_below">@id/trainer_intro</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="baseCardTextStyle4" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_toLeftOf">@id/card_share_overflow</item>
+        <item name="android:layout_toRightOf">@id/trainer_image</item>
+        <item name="android:layout_below">@id/trainer_tel</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+    <style name="baseCardTextStyle5" parent="baseLayoutParam">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_toLeftOf">@id/card_share_overflow</item>
+        <item name="android:layout_toRightOf">@id/trainer_image</item>
+        <item name="android:layout_below">@id/trainer_email</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
+    <style name="cardQuestionTitleStyle" parent="baseCardTextStyle">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="cardQuestionTitleStyle2" parent="baseCardTextStyle2">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="cardOverflowIconStyle">
+        <item name="android:contentDescription">@string/share_this_news</item>
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:src">@drawable/ic_card_overflow</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="floatingActionButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_gravity">bottom|right</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:src">@drawable/ic_action_go_to_date</item>
+    </style>
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/cardview_light_background</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="hint_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#F08080</item>
+    </style>
+
+    <style name="error_style">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#8B0000</item>
+    </style>
+    <style name="Bubble.TextAppearance.Dark" parent="android:TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff7f7f7f</item>
+    </style>
+
+    <style name="Bubble.TextAppearance.Light" parent="Bubble.TextAppearance.Dark">
+        <item name="android:textColor">#ffeeeeee</item>
+    </style>
+
+    <style name="ClusterIcon.TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">#ffeeeeee</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>

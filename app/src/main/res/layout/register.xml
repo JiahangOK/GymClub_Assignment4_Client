@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/register"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_Register"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/error_style"
+        app:hintTextAppearance="@style/hint_style">
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:singleLine="true"
+            android:textSize="38px" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="0px"
+        android:layout_margin="0px"
+        android:orientation="horizontal"
+        >
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_phoneNumber"
+            android:layout_width="146dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="0dp"
+            android:orientation="horizontal"
+            app:counterEnabled="true"
+            app:counterMaxLength="11"
+            app:counterOverflowTextAppearance="@style/error_style"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/error_style"
+            app:hintTextAppearance="@style/hint_style">
+
+            <EditText
+                android:id="@+id/et_phoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"
+                android:singleLine="true"
+                android:textSize="38px" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_username"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:counterOverflowTextAppearance="@style/error_style"
+            app:errorEnabled="true"
+            app:errorTextAppearance="@style/error_style"
+            app:hintTextAppearance="@style/hint_style">
+
+            <EditText
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:singleLine="true"
+                android:textSize="38px" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:counterEnabled="true"
+        app:hintTextAppearance="@style/hint_style"
+        app:passwordToggleEnabled="true"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/error_style">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tiet_password"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="38px" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_password_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        app:counterEnabled="true"
+        app:counterOverflowTextAppearance="@style/hint_style"
+        app:passwordToggleEnabled="true"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/error_style"
+        app:hintTextAppearance="@style/hint_style"
+        >
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tiet_password_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="38px"
+            app:hintTextAppearance="@style/hint_style" />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/submit_register"
+        android:layout_marginTop="18dp"
+        android:layout_width="360px"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:textSize="20dp"
+        android:background="@drawable/btn_nor_down"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"/>
+
+
+
+</LinearLayout>

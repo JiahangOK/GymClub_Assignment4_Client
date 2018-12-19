@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Zone">
+        <menu>
+            <group android:checkableBehavior="single"
+                >
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="Home" />
+                <item
+                    android:id="@+id/nav_announcement"
+                    android:icon="@drawable/ic_announcement"
+                    android:title="Announcement" />
+                <item
+                    android:id="@+id/nav_schedule"
+                    android:icon="@drawable/ic_schedule"
+                    android:title="Schedule" />
+                <item
+                android:id="@+id/nav_coaches"
+                android:icon="@drawable/ic_coaches"
+                android:title="Coaches" />
+                <item
+                    android:id="@+id/nav_findus"
+                    android:icon="@drawable/icon_findus"
+                    android:title="Find Us" />
+
+            </group>
+
+
+        </menu>
+
+
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_send"
+                android:title="Send" />
+        </menu>
+    </item>
+</menu>

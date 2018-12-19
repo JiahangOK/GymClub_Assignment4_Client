@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="20dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:src="@drawable/headpic"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:civ_border_color="#111"
+            app:civ_border_width="2dp"
+            />
+        <!--android:menu="@menu/nav_menu"-->
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tommy"
+            android:textSize="50px"
+            android:textAlignment="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Good luck with that!"
+            android:textSize="30px"
+            android:gravity="center"
+
+            android:paddingLeft="10dp"
+            android:textColor="#111111"/>
+
+
+
+</LinearLayout>
