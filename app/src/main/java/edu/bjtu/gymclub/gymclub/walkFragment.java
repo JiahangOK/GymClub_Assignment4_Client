@@ -37,7 +37,8 @@ public class walkFragment extends Fragment {
 
     @SuppressLint("ValidFragment")
     public walkFragment(String jsoninfo) {
-        this.jsoninfo = jsoninfo;
+        //this.jsoninfo = jsoninfo;
+        this.jsoninfo="";
     }
 
     @Nullable

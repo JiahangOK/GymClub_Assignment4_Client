@@ -74,7 +74,7 @@ public class MainInterfaceActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 transaction = manager.beginTransaction();
-                transaction.replace(R.id.content_layout, new sportFragment(jsoninfo),"sportFragment");
+                transaction.replace(R.id.content_layout, new sportFragment(jsoninfo));
                 transaction.commit();
             }
         });

@@ -69,6 +69,9 @@
         <activity
             android:name=".FindUsActivity"
             android:label="Find Us"/>
+        <activity
+            android:name=".ArticleActivity"
+            android:label="Detail"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ZpGHaAymKi3PB0w5DRfapTuu46dzA6lH"/>

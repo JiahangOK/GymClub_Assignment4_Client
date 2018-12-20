@@ -1,35 +1,33 @@
 package edu.bjtu.gymclub.gymclub;
 
 import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.view.LayoutInflater;
-import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -38,7 +36,12 @@ import java.util.concurrent.TimeUnit;
 
 import edu.bjtu.gymclub.gymclub.Adapter.RecyclerViewAdapter;
 import edu.bjtu.gymclub.gymclub.Entity.Config;
+import edu.bjtu.gymclub.gymclub.Entity.TrainnerThread.DeleteThread;
+import edu.bjtu.gymclub.gymclub.Entity.TrainnerThread.GetAllThread;
+import edu.bjtu.gymclub.gymclub.Entity.TrainnerThread.InsertThread;
 import edu.bjtu.gymclub.gymclub.Entity.Trainer;
+import edu.bjtu.gymclub.gymclub.Entity.TrainerDataBase;
+import edu.bjtu.gymclub.gymclub.Entity.Trainer_Room;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -53,6 +56,8 @@ public class runFragment extends Fragment {
     private List<ImageView> images;
     private List<View> dots;
     private int currentItem;
+    private List<Trainer> trainers;
+
 
     //记录上一次点的位置
     private int oldPosition = 0;
@@ -77,7 +82,7 @@ public class runFragment extends Fragment {
     private TextView title;
     private ViewPagerAdapter adapter;
     private ScheduledExecutorService scheduledExecutorService;
-    private String jsoninfo;
+
 
     private RecyclerView recyclerView;
     private List<Trainer> trainerList;
@@ -88,9 +93,6 @@ public class runFragment extends Fragment {
 
     }
 
-    public void setJsoninfo(String jsoninfo) {
-        this.jsoninfo = jsoninfo;
-    }
 
     @Nullable
     @Override
@@ -103,18 +105,106 @@ public class runFragment extends Fragment {
         SharedPreferences sp = null;
         sp = getActivity().getSharedPreferences("userinfo", Context.MODE_PRIVATE);//sp.getString()第二个参数是缺省值，如果SharedPreferences中不存在值就返回缺省值
         String username = sp.getString("USERNAME", ""); //获取sp里面存储的数据
+        if (isNetworkAvalible(getContext())) {
+            String url_test = "http://" + Config.HOST + ":8080";
+            String url = "http://" + Config.HOST + ":8080/userTrainer";
+            HttpURLConnection urlConn = null;
+            boolean isConn = false;
+            try {
+                urlConn = (HttpURLConnection) new URL(url_test).openConnection();
+                urlConn.setConnectTimeout(1000);
+                if (urlConn.getResponseCode() == 200) {
+                    isConn = true;
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                urlConn.disconnect();
+            }
+            if (isConn == false) {
+                System.out.println("没连接上");
+                //读缓存
+                TrainerDataBase trainerDataBase = Room.databaseBuilder(getActivity().getApplicationContext(),
+                        TrainerDataBase.class, "trainer.db").build();
 
-        String url = "http://" + Config.HOST + ":8080/userTrainer?username=" + username;
-        initTrainerData(url);
+                GetAllThread getAllThread = new GetAllThread(trainerDataBase);
+                getAllThread.setCallback(runFragment.this);
+                getAllThread.start();
+                try {
+                    getAllThread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                recyclerViewAdapter = new RecyclerViewAdapter(trainers, getActivity());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(recyclerViewAdapter);
+            } else {
+                System.out.println("连接上了");
+                //有网
+                initTrainerData(url, username);
+            }
+
+
+        } else {
+            //没网，读缓存
+            TrainerDataBase trainerDataBase = Room.databaseBuilder(getActivity().getApplicationContext(),
+                    TrainerDataBase.class, "trainer.db").build();
+            GetAllThread getAllThread = new GetAllThread(trainerDataBase);
+            getAllThread.setCallback(runFragment.this);
+            getAllThread.start();
+            try {
+                getAllThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            recyclerViewAdapter = new RecyclerViewAdapter(trainers, getActivity());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(recyclerViewAdapter);
+        }
 
 
         return mView;
     }
 
+    public void setTrainers(List<Trainer> trainers) {
+        this.trainers = trainers;
+    }
+
+    public static boolean isNetworkAvalible(Context context) {
+        // 获得网络状态管理器
+        ConnectivityManager connectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (connectivityManager == null) {
+            return false;
+        } else {
+            // 建立网络数组
+            NetworkInfo[] net_info = connectivityManager.getAllNetworkInfo();
+
+            if (net_info != null) {
+                for (int i = 0; i < net_info.length; i++) {
+                    // 判断获得的网络状态是否是处于连接状态
+                    if (net_info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     //加载教练信息
-    private void initTrainerData(String url) {
+    private void initTrainerData(String url, String username) {
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder formBuilder = new FormBody.Builder();
+        System.out.println("username:" + username);
+        formBuilder.add("username", username);
         Request request = new Request.Builder().url(url).post(formBuilder.build()).build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
@@ -123,8 +213,8 @@ public class runFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //连接失败从数据库中读取
-                        System.out.println("连接失败，从数据库读取！");
+
+                        System.out.println("连接失败！");
 
                     }
                 });
@@ -136,25 +226,23 @@ public class runFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
-
                         String res = null;
                         try {
                             res = response.body().string();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-//                        String jsoninfo = null;
+                        String jsoninfo = null;
 
                         System.out.println("获取到res：" + res);
                         //获取当前fragment
 //                        FragmentManager fragmentManager = getFragmentManager();
 //                        runFragment runfragment = null;
-
+//
 //                        runfragment = (runFragment) fragmentManager.getFragments().get(0);
 //                        runfragment.setJsoninfo(res);
-                        String jsoninfo = res;
-                        //存入数据库
+                        jsoninfo = res;
+
 
                         trainerList = new ArrayList<>();
 
@@ -168,6 +256,8 @@ public class runFragment extends Fragment {
                         try {
                             jsonObject = new JSONObject(jsoninfo);
                             JSONArray data = jsonObject.getJSONArray("trainer_info");
+
+                            List<Trainer_Room> trainers = new ArrayList<Trainer_Room>();
                             for (int i = 0; i < data.length(); i++) {
                                 JSONObject jsonObject1 = data.getJSONObject(i);
                                 trainer_image = jsonObject1.getString("trainer_image_url");
@@ -177,10 +267,24 @@ public class runFragment extends Fragment {
                                 trainer_email = jsonObject1.getString("trainer_email");
                                 //添加教练
                                 trainerList.add(new Trainer(trainer_name, trainer_image, trainer_intro, trainer_tel, trainer_email));
+                                trainers.add(new Trainer_Room(trainer_name, trainer_image, trainer_intro, trainer_tel, trainer_email));
                             }
+
+                            //存入数据库
+                            TrainerDataBase trainerDataBase = Room.databaseBuilder(getActivity().getApplicationContext(),
+                                    TrainerDataBase.class, "trainer.db").build();
+                            DeleteThread deleteThread = new DeleteThread(trainerDataBase);
+                            deleteThread.start();//清空表
+                            deleteThread.join();
+                            Trainer_Room[] trainer_rooms_array = new Trainer_Room[trainers.size()];
+                            trainers.toArray(trainer_rooms_array);
+                            InsertThread insertThread = new InsertThread(trainerDataBase, trainer_rooms_array);
+                            insertThread.start();
 
 
                         } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         recyclerViewAdapter = new RecyclerViewAdapter(trainerList, getActivity());
@@ -311,3 +415,7 @@ public class runFragment extends Fragment {
     }
 
 }
+
+
+
+
